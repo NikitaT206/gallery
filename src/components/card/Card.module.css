@@ -6,8 +6,10 @@
 
 .cardClicked {
   composes: card;
-  outline: 4px solid #90E149;
-  border: 4px solid #90E149;
+  -webkit-box-shadow: 0px 0px 0px 4px rgba(144, 225, 73, 1);
+  -moz-box-shadow: 0px 0px 0px 4px rgba(144, 225, 73, 1);
+  box-shadow: 0px 0px 0px 4px rgba(144, 225, 73, 1);
+  border: 4px solid rgba(144, 225, 73, 1);
 }
 
 .image {
@@ -34,6 +36,11 @@
   box-orient: vertical;
 }
 
+.cardClicked > .wrapper {
+  bottom: 46px;
+  left: 44px;
+}
+
 .button {
   background-color: white;
   border: none;
@@ -48,10 +55,6 @@
   margin-bottom: 25px;
   cursor: pointer;
   user-select: none;
-}
-
-.cardClicked > .wrapper {
-  bottom: 45px;
 }
 
 .name {
