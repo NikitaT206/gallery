@@ -47,7 +47,7 @@
   color: #391400;
   margin-bottom: 25px;
   cursor: pointer;
-  user-select: none;  
+  user-select: none;
 }
 
 .cardClicked > .wrapper {
