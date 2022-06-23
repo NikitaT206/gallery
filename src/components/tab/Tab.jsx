@@ -5,9 +5,10 @@ import styles from './Tab.module.css'
 export function Tab({tab, mainRef}) {
   const dispatch = useDispatch()
   const {currentTab} = useSelector(state => state.main)
-  
+
   function onClickHandler() {
     mainRef.current.scrollIntoView({ behavior: "smooth" })
+    if (currentTab === tab) return
     dispatch(setCurrentTab(tab))
     setTimeout(() => {
       dispatch(setCurrentCards())
