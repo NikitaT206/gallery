@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/gallery/static/css/main.fe8bb808.css",
-    "main.js": "/gallery/static/js/main.d4021d9f.js",
+    "main.js": "/gallery/static/js/main.58eb5406.js",
     "static/media/Epilogue-ExtraBold.ttf": "/gallery/static/media/Epilogue-ExtraBold.fba84a089cac3433d854.ttf",
     "static/media/Epilogue-Black.ttf": "/gallery/static/media/Epilogue-Black.1549d76a4ff33605192f.ttf",
     "static/media/Epilogue-Bold.ttf": "/gallery/static/media/Epilogue-Bold.6b610bff2224fb46a1e1.ttf",
@@ -19,10 +19,10 @@
     "index.html": "/gallery/index.html",
     "static/media/Triangle.svg": "/gallery/static/media/Triangle.0821bba21c35c2152ebe.svg",
     "main.fe8bb808.css.map": "/gallery/static/css/main.fe8bb808.css.map",
-    "main.d4021d9f.js.map": "/gallery/static/js/main.d4021d9f.js.map"
+    "main.58eb5406.js.map": "/gallery/static/js/main.58eb5406.js.map"
   },
   "entrypoints": [
     "static/css/main.fe8bb808.css",
-    "static/js/main.d4021d9f.js"
+    "static/js/main.58eb5406.js"
   ]
 }
