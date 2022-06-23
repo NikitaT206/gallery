@@ -1,0 +1,56 @@
+.heading {
+  background-color: #28293e;
+  color: white;
+  padding-bottom: 62px;
+}
+
+.title {
+  padding-top: 85px;
+  font-size: 68px;
+  margin: 0 auto;
+  max-width: max-content;
+  letter-spacing: -5px;
+  font-weight: 400;
+  margin-bottom: 28px;
+  line-height: 80px;
+}
+
+.subtitle {
+  max-width: 570px;
+  font-size: 16px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 32px;
+  color: #FFFFFFA3;
+  letter-spacing: -1px;
+}
+
+.main {
+  background-color: #FDF0E9;
+  padding: 78px 0 184px;
+  position: relative;
+  min-height: calc(100vh - 600px);
+}
+
+@media screen and (max-width: 1039px) {
+  .heading {
+    padding-bottom: 78px;
+
+  }
+
+  .main {
+    padding: 128px 0 224px;
+  }
+
+  .title {
+    font-size: 53px;
+    line-height: 64px;
+    margin-bottom: 17px;
+    padding-top: 70px;
+    letter-spacing: -3px;
+  }
+
+  .subtitle {
+    max-width: 329px;
+  }
+}

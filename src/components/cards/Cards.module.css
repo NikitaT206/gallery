@@ -1,0 +1,47 @@
+.cards {
+  width: 81.25%;
+  max-width: 1570px;
+  margin: 0 auto;
+}
+
+.currentCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-rows: 416px;
+  grid-auto-rows: 416px;
+  gap: 32px 30px;
+  transition: .4s linear;
+}
+
+.currentCardsFade {
+  composes: currentCards;
+  transition: .1s linear;
+  opacity: 0;
+}
+
+.button {
+  display: block;
+  font-size: 14px;
+  line-height: 19px;
+  background-color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 400;
+  padding: 14px 46px 15px;
+  margin: 80px auto 0;
+  cursor: pointer;
+  box-shadow: 0px 3px 9px #39140014;
+  user-select: none;
+}
+
+@media screen and (max-width: 1039px) {
+  .cards {
+    width: 87.73%;
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  .currentCards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

@@ -1,0 +1,81 @@
+.tabs {
+  max-width: 48.12%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 66px;
+  list-style-type: none;
+  padding: 0;
+}
+
+.selectTabs {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translate(-50%);
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  width: 329px;
+  overflow: hidden;
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #F3D1BF;
+  z-index: 10;
+  display: none;
+}
+
+.selectedTab {
+  padding: 14px 0 12px 16px;
+  color: #391400A3;
+  font-size: 16px;
+  line-height: 21px;
+  cursor: pointer;
+  position: relative;
+}
+
+.accordeon {
+  list-style-type: none;
+  margin: 0;
+  height: 165px;
+  transition: .4s ease-in-out;
+  padding: 0 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.accordeonHidden {
+  composes: accordeon;
+  height: 0;
+  opacity: 0;
+}
+
+.arrow {
+  width: 10px;
+  height: 6px;
+  background-image: url(../../images/Triangle.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 21px;
+  right: 16px;
+  transition: .2s ease-in-out;
+}
+
+.arrowReverse {
+  composes: arrow;
+  transform: rotate(180deg);
+}
+
+@media screen and (max-width: 1039px) {
+  .selectTabs {
+    display: block;
+  }
+
+  .tabs {
+    display: none;
+  }
+
+}

@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'Epilogue';
+  src: url(./fonts/Epilogue-Regular.ttf);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Epilogue';
+  src: url(./fonts/Epilogue-Bold.ttf);
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Epilogue';
+  src: url(./fonts/Epilogue-ExtraBold.ttf);
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: 'Epilogue';
+  src: url(./fonts/Epilogue-Black.ttf);
+  font-weight: 900;
+}
+
+body {
+  font-family: 'Epilogue', Arial, Helvetica, sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
