@@ -3,9 +3,12 @@ import { Header } from './components/header/Header';
 import {Tabs} from './components/tabs/Tabs'
 import {Cards} from './components/cards/Cards'
 import { useRef, useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setTabsOpen } from './services/slices/mainSlice';
 
 function App() {
   const mainRef = useRef()
+  const dispatch = useDispatch()
 
   const [width, setWidth] = useState(window.innerWidth)
 
@@ -18,7 +21,7 @@ function App() {
   }, [])
 
   return (
-    <div className={styles.app}>
+    <div className={styles.app} onClick={() => dispatch(setTabsOpen(false))}>
 
       <div className={styles.heading}>
         <Header/>
@@ -27,7 +30,7 @@ function App() {
       </div>
 
       <main className={styles.main} ref={mainRef}>
-        <Tabs/>
+        <Tabs mainRef={mainRef}/>
         <Cards mainRef={mainRef} width={width}/>
       </main>
     </div>

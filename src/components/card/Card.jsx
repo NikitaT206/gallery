@@ -7,7 +7,7 @@ export function Card({card, mainRef, width}) {
   const dispatch = useDispatch()
   const {currentTab, clickedCards} = useSelector(state => state.main)
   const isClicked = clickedCards.some(id => id === card.id)
-
+  
   function onButtonClickHandler(event) {
     event.stopPropagation()
 
@@ -15,7 +15,7 @@ export function Card({card, mainRef, width}) {
       mainRef.current.scrollIntoView({ behavior: "smooth" })
       return
     }
-    
+
     mainRef.current.scrollIntoView({ behavior: "smooth" })
     dispatch(setCurrentTab(card.category))
     setTimeout(() => {
