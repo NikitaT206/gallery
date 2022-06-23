@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/gallery/static/css/main.792c35cb.css",
+    "main.css": "/gallery/static/css/main.fe8bb808.css",
     "main.js": "/gallery/static/js/main.a131bbd6.js",
     "static/media/Epilogue-ExtraBold.ttf": "/gallery/static/media/Epilogue-ExtraBold.fba84a089cac3433d854.ttf",
     "static/media/Epilogue-Black.ttf": "/gallery/static/media/Epilogue-Black.1549d76a4ff33605192f.ttf",
@@ -18,11 +18,11 @@
     "static/media/logo.svg": "/gallery/static/media/logo.f9749d05fc56ba581973e8936f8c962b.svg",
     "index.html": "/gallery/index.html",
     "static/media/Triangle.svg": "/gallery/static/media/Triangle.0821bba21c35c2152ebe.svg",
-    "main.792c35cb.css.map": "/gallery/static/css/main.792c35cb.css.map",
+    "main.fe8bb808.css.map": "/gallery/static/css/main.fe8bb808.css.map",
     "main.a131bbd6.js.map": "/gallery/static/js/main.a131bbd6.js.map"
   },
   "entrypoints": [
-    "static/css/main.792c35cb.css",
+    "static/css/main.fe8bb808.css",
     "static/js/main.a131bbd6.js"
   ]
 }
