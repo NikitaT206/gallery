@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setNumberOfSlice, setCurrentCards, setCurrentTab, setInitialCards } from '../../services/slices/mainSlice'
 import { useEffect } from 'react'
 
-export function Cards({tabsRef, width}) {
+export function Cards({mainRef, width}) {
   const {fade, currentCards, numberOfSlice, clickedCards, initialCards} = useSelector(state => state.main)
   const dispatch = useDispatch()
 
@@ -35,7 +35,7 @@ export function Cards({tabsRef, width}) {
 
       <div className={fade ? styles.currentCardsFade : styles.currentCards}>
         {currentCards.slice(0, numberOfSlice).map(card => {
-          return <Card card={card} key={card.id} tabsRef={tabsRef} width={width}/>
+          return <Card card={card} key={card.id} mainRef={mainRef} width={width}/>
         })}
       </div>
 

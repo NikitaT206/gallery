@@ -2,7 +2,7 @@ import styles from './Card.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentCards, setCurrentTab, setClikedCards } from '../../services/slices/mainSlice'
 
-export function Card({card, tabsRef, width}) {
+export function Card({card, mainRef, width}) {
 
   const dispatch = useDispatch()
   const {currentTab, clickedCards} = useSelector(state => state.main)
@@ -11,7 +11,7 @@ export function Card({card, tabsRef, width}) {
   function onButtonClickHandler(event) {
     event.stopPropagation()
     if (currentTab === card.category) return
-    tabsRef.current.scrollIntoView({ behavior: "smooth" })
+    mainRef.current.scrollIntoView({ behavior: "smooth" })
     dispatch(setCurrentTab(card.category))
     setTimeout(() => {
       dispatch(setCurrentCards())
