@@ -10,7 +10,12 @@ export function Card({card, mainRef, width}) {
 
   function onButtonClickHandler(event) {
     event.stopPropagation()
-    if (currentTab === card.category) return
+
+    if (currentTab === card.category) {
+      mainRef.current.scrollIntoView({ behavior: "smooth" })
+      return
+    }
+    
     mainRef.current.scrollIntoView({ behavior: "smooth" })
     dispatch(setCurrentTab(card.category))
     setTimeout(() => {
