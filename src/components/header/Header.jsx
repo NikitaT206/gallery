@@ -7,6 +7,7 @@ export function Header() {
 
       <div className={styles.logoContainer}>
         <img src={logo} className={styles.logo} alt='logo'/>
+        <span className={styles.logoText}>Agency</span>
       </div>
 
       <nav className={styles.links}>
