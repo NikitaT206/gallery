@@ -21,7 +21,7 @@ export function Cards({tabsRef, width}) {
 
   useEffect(() => {
     const deleteByKey = (event) => {
-      if (event.key === 'Escape') {
+      if (event.key === 'Delete') {
         const filteredCards = initialCards.filter(card => !clickedCards.includes(card.id))
         dispatch(setInitialCards(filteredCards))
       }
