@@ -23,7 +23,8 @@
   border-radius: 6px;
   border: 1px solid #F3D1BF;
   z-index: 10;
-  display: none;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .selectedTab {
@@ -71,7 +72,8 @@
 
 @media screen and (max-width: 1039px) {
   .selectTabs {
-    display: block;
+    opacity: 1;
+    visibility: visible;
   }
 
   .tabs {
