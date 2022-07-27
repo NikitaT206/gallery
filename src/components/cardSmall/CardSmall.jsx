@@ -24,7 +24,7 @@ export function CardSmall({card}) {
     if (currentCard.id == ref.current.id) {
       ref.current.scrollIntoView({ behavior: "smooth" })
     }
-  })
+  }, [currentCard])
 
   return (
     <div 
