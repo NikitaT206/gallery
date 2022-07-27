@@ -11,6 +11,10 @@ const mainSlice = createSlice({
     numberOfSlice: 9,
     clickedCards: [],
     isTabsOpen: false,
+    currentCard: null,
+    isCurrentCardFade: false,
+    isPopupOpen: false,
+    isPopupFade: false
   },
   reducers: {
     setCurrentTab(state, action) {
@@ -19,6 +23,18 @@ const mainSlice = createSlice({
       state.fade = true
       state.isTabsOpen = false
       state.numberOfSlice = 9
+    },
+    setCurrentCard(state, action) {
+      state.currentCard = action.payload
+    },
+    setCurrentCardFade(state, action) {
+      state.isCurrentCardFade = action.payload
+    },
+    setPopupOpen(state, action) {
+      state.isPopupOpen = action.payload
+    },
+    setPopupFade(state, action) {
+      state.isPopupFade = action.payload
     },
     setCurrentCards(state) {
       if (state.currentTab === 'Show All') {
@@ -54,6 +70,10 @@ export const {
   setClikedCards,
   setInitialCards,
   setTabsOpen,
+  setCurrentCard,
+  setPopupOpen,
+  setPopupFade,
+  setCurrentCardFade
 } = actions
 
 export default reducer 

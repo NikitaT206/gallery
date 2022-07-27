@@ -1,6 +1,6 @@
 import styles from './Card.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentCards, setCurrentTab, setClikedCards } from '../../services/slices/mainSlice'
+import { setCurrentCards, setCurrentTab, setClikedCards, setCurrentCard, setPopupOpen, setPopupFade } from '../../services/slices/mainSlice'
 
 export function Card({card, mainRef, width}) {
 
@@ -23,17 +23,26 @@ export function Card({card, mainRef, width}) {
     }, 200)
   }
 
-  function onCardClickHandler() {
-    if (width < 1040) return
-    if (!isClicked) {
-      dispatch(setClikedCards([...clickedCards, card.id]))
-    } else {
-      dispatch(setClikedCards(clickedCards.filter(c => c !== card.id)))
-    }
+  // function onCardClickHandler() {
+  //   if (width < 1040) return
+  //   if (!isClicked) {
+  //     dispatch(setClikedCards([...clickedCards, card.id]))
+  //   } else {
+  //     dispatch(setClikedCards(clickedCards.filter(c => c !== card.id)))
+  //   }
+  // }
+
+  function onCardClick() {
+    dispatch(setPopupFade(true))
+    dispatch(setCurrentCard(card))
+    dispatch(setPopupOpen(true))
+    setTimeout(() => {
+      dispatch(setPopupFade(false))
+    }, 300)
   }
 
   return (
-    <div className={isClicked ? styles.cardClicked : styles.card} onClick={onCardClickHandler}>
+    <div className={isClicked ? styles.cardClicked : styles.card} onClick={onCardClick}>
       <img className={styles.image} src={card.image} alt={card.name}/>
       <div className={styles.wrapper}>
         <button 

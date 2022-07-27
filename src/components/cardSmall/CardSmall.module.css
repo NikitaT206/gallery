@@ -1,0 +1,25 @@
+.currentCard {
+  min-width: 100px;
+  max-height: 100px;
+  transition: .2s ease-in-out;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.currentCardContainer {
+  composes: currentCard;
+  min-width: 130px;
+  max-height: 130px;
+  min-height: 130px;
+  cursor: initial;
+
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
