@@ -28,7 +28,7 @@ export function CardSmall({card}) {
 
   return (
     <div 
-      className={isCurrentCard ? styles.currentCardContainer : styles.currentCard} 
+      className={isCurrentCard ? styles.currentCard : styles.card} 
       id={card.id}
       onClick={onClickHandler}
       ref={ref}

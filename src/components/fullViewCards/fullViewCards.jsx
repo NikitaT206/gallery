@@ -2,8 +2,9 @@ import { useRef } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentCard, setCurrentCardFade, setPopupFade, setPopupOpen } from '../../services/slices/mainSlice'
+import { setCurrentCard, setCurrentCardFade, setFullScreen, setPopupFade, setPopupOpen, setUxHidden } from '../../services/slices/mainSlice'
 import { CardSmall } from '../cardSmall/CardSmall'
+import { FullViewImage } from '../fullViewImage/fullViewImage'
 import styles from './fullViewCards.module.css'
 
 export function FullViewCards() {
@@ -11,6 +12,9 @@ export function FullViewCards() {
   const {isPopupOpen} = useSelector(state => state.main)
   const {isPopupFade} = useSelector(state => state.main)
   const {isCurrentCardFade} = useSelector(state => state.main)
+  const {isUxHidden} = useSelector(state => state.main)
+  const [touchPosition, setTouchPosition] = useState(null)
+
   const dispatch = useDispatch()
 
   const [animatePrevButton, setAnimatePrevButton] = useState(false)
@@ -55,6 +59,36 @@ export function FullViewCards() {
     }, 300)
   }
 
+  function toogleUxContainerHidden(event) {
+    event.stopPropagation()
+    dispatch(setUxHidden(!isUxHidden))
+  }
+
+  const handleTouchStart = (e) => {
+    const touchDown = e.touches[0].clientX
+
+    setTouchPosition(touchDown)
+  }
+
+  const handleTouchMove = (e) => {
+    if (touchPosition === null) {
+      return
+    }
+
+    const currentPosition = e.touches[0].clientX
+    const direction = touchPosition - currentPosition
+  
+    if (direction > 10) {
+      setNextCard(e)
+    }
+
+    if (direction < -10) {
+      setPrevCard(e)
+    }
+
+    setTouchPosition(null);
+  }
+
   if (!isPopupOpen) {
     return null
   }
@@ -63,22 +97,46 @@ export function FullViewCards() {
     <div className={isPopupFade ? styles.overlayFade : styles.overlay} onClick={closePopup}>
 
       <div className={styles.flexContainer}>
-        <button className={animatePrevButton ? styles.buttonPrevAnimate : styles.buttonPrev} onClick={setPrevCard}></button>
-        <div className={isCurrentCardFade ? styles.imageContainerFade : styles.imageContainer} onClick={(event) => event.stopPropagation()}>
-          <div className={styles.description}>
-            <p className={styles.name}>{currentCard.name}</p>
-            <p className={styles.category}>{currentCard.category}</p>
+
+        <div className={isUxHidden ? styles.uxContainerHidden : styles.uxContainer}>
+          <button className={styles.closeButton} onClick={closePopup}></button>
+          <button className={animatePrevButton ? styles.buttonPrevAnimate : styles.buttonPrev} onClick={setPrevCard}></button>
+          <button className={animateNextButton ? styles.buttonNextAnimate : styles.buttonNext} onClick={setNextCard}></button>
+          <div className={styles.cardsConteiner}>
+            {currentCards.map(item => {
+              return <CardSmall card={item} key={item.id}/>
+            })}
           </div>
+
+          {/* <div className={styles.description}>
+            <div>
+              <p className={styles.name}>{currentCard.name}</p>
+              <p className={styles.category}>{currentCard.category}</p>
+            </div>
+          </div> */}
+        </div>
+
+        {/* <div className={styles.imagesContainer} onClick={toogleUxContainerHidden} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove}>
+          {currentCards.map(item => {
+            return (
+              <FullViewImage image={item} key={item.id}/>
+            ) 
+          })}
+        </div> */}
+       
+        <div 
+          className={isCurrentCardFade ? styles.imageContainerFade : styles.imageContainer} 
+          onClick={toogleUxContainerHidden}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+        >
+         
           <img src={currentCard.image} className={styles.image}></img>
         </div>
-        <button className={animateNextButton ? styles.buttonNextAnimate : styles.buttonNext} onClick={setNextCard}></button>
       </div>
 
-      <div className={styles.cardsConteiner}>
-        {currentCards.map(item => {
-          return <CardSmall card={item} key={item.id}/>
-        })}
-      </div>
+     
+     
 
     </div>
   )

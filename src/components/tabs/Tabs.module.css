@@ -39,7 +39,7 @@
 .accordeon {
   list-style-type: none;
   margin: 0;
-  height: 165px;
+  height: 200px;
   transition: .4s ease-in-out;
   padding: 0 0 0 16px;
   display: flex;
