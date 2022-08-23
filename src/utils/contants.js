@@ -107,6 +107,6 @@ export const cards = [
   {name: 'Macro', category: 'Macro', image: macro11, id: 47},
   {name: 'Macro', category: 'Macro', image: macro12, id: 48},
   
-]
+].sort(() => Math.random() - .5)
 
 export const tabs = ['Show All', 'Animals', 'Landscapes', 'Birds', 'Abstract', 'Macro']

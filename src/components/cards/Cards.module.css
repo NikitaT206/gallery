@@ -5,18 +5,9 @@
 }
 
 .currentCards {
-  /* display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-template-rows: 416px;
-  grid-auto-rows: 416px; */
-  /* gap: 32px 30px; */
   display: grid;
   gap: 20px;
-  /* grid-gap: 1%; */
-
-  /* fit as many columns as possible, 180px wide each: */
   grid-template-columns: repeat(auto-fill, minmax(1fr, 200px));
-  /* each row is 20px high -- we always span 2+ */
   grid-auto-rows: minmax(20px, auto);
   justify-content: center;
   transition: .4s linear;
@@ -42,53 +33,4 @@
   box-shadow: 0px 3px 9px #39140014;
   user-select: none;
   color: #391400;
-}
-
-@media screen and (max-width: 1039px) {
-  /* .currentCards {
-  
-    grid-template-columns: repeat(auto-fill, 250px);
-  justify-content: center;
-  gap: 20px;
-   
-  } */
-}
-
-@media screen and (max-width: 850px) {
-  /* .currentCards {
-  
-    grid-template-columns: repeat(auto-fill, 300px);
-   
-  } */
-}
-
-@media screen and (max-width: 675px) {
-  /* .currentCards {
-  
-    grid-template-columns: repeat(auto-fill, 250px);
-   
-  } */
-}
-
-@media screen and (max-width: 565px) {
-  /* .currentCards {
-  
-    grid-template-columns: repeat(auto-fill, 200px);
-   
-  } */
-}
-
-@media screen and (max-width: 450px) {
-  /* .currentCards {
-  
-    grid-template-columns: repeat(auto-fit, 150px);
-    justify-content: space-around;
-   
-  } */
-}
-
-@media screen and (min-width: 1441px) {
-  .currentCards {
-    grid-template-columns: repeat(4, 1fr);
-  }
 }
