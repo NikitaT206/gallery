@@ -24,11 +24,11 @@ function App() {
   return (
     <div className={isPopupOpen ? styles.noScroll : styles.app} onClick={() => dispatch(setTabsOpen(false))}>
       <div className={isPopupOpen ? styles.blur : styles.notBlur}>
-        <div className={styles.heading}>
+        {/* <div className={styles.heading}>
           <Header/>
           <h1 className={styles.title}>Portfolio</h1>
           <p className={styles.subtitle}>Agency provides a full service range including technical skills, design, business understanding.</p>
-        </div>
+        </div> */}
 
         <main className={styles.main} ref={mainRef}>
           <Tabs mainRef={mainRef}/>

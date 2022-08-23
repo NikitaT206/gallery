@@ -47,7 +47,7 @@
 }
 
 .main {
-  background-color: #FDF0E9;
+  background-color: white;
   padding: 78px 0 184px;
   position: relative;
   min-height: calc(100vh - 600px);
