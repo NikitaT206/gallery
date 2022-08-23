@@ -4,6 +4,15 @@
   overflow: hidden;
   cursor: pointer;
   float: left;
+  opacity: 1;
+  visibility: visible;
+  transition: .3s ease-in-out;
+}
+
+.cardHide {
+  composes: card;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .cardClicked {
