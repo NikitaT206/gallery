@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { useEffect } from 'react'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentCard, setCurrentCardFade, setFullScreen, setPopupFade, setPopupOpen, setUxHidden } from '../../services/slices/mainSlice'
 import { CardSmall } from '../cardSmall/CardSmall'
@@ -14,40 +14,56 @@ export function FullViewCards() {
   const {isCurrentCardFade} = useSelector(state => state.main)
   const {isUxHidden} = useSelector(state => state.main)
   const [touchPosition, setTouchPosition] = useState(null)
+  const [startPrevAnimation, setStartPrevAnimation] = useState(false)
+  const [startNextAnimation, setStartNextAnimation] = useState(false)
 
   const dispatch = useDispatch()
 
   const [animatePrevButton, setAnimatePrevButton] = useState(false)
   const [animateNextButton, setAnimateNextButton] = useState(false)
 
+  const prevCard = useMemo(() => {
+    let prev = currentCards.find((item, index, arr) => arr.indexOf(item) === arr.indexOf(currentCard) - 1)
+    if (!prev) {
+     prev = currentCards[currentCards.length - 1]
+    }
+    return prev
+   } , [currentCard])
+ 
+   const nextCard = useMemo(() => {
+     let next = currentCards.find((item, index, arr) => arr.indexOf(item) === arr.indexOf(currentCard) + 1)
+     if (!next) {
+       next = currentCards[0]
+     }
+     return next
+   } , [currentCard])
+
   function setPrevCard(event) {
     event.stopPropagation()
-    dispatch(setCurrentCardFade(true))
+    // dispatch(setCurrentCardFade(true))
     setAnimatePrevButton(true)
-    let prev = currentCards.find((item, index, array) => array.indexOf(item) === array.indexOf(currentCard) - 1)
-    if (!prev) {
-      prev = currentCards[currentCards.length - 1]
-    }
+    setStartPrevAnimation(true)
+
     setTimeout(() => {
-      dispatch(setCurrentCard(prev))
-      dispatch(setCurrentCardFade(false))
+      setStartPrevAnimation(false)
+      dispatch(setCurrentCard(prevCard))
+      // dispatch(setCurrentCardFade(false))
       setAnimatePrevButton(false)
-    }, 200)
+    }, 400)
   }
 
   function setNextCard(event) {
     event.stopPropagation()
-    dispatch(setCurrentCardFade(true))
+    // dispatch(setCurrentCardFade(true))
     setAnimateNextButton(true)
-    let next = currentCards.find((item, index, array) => array.indexOf(item) === array.indexOf(currentCard) + 1)
-    if (!next) {
-      next = currentCards[0]
-    }
+    setStartNextAnimation(true)
+
     setTimeout(() => {
-      dispatch(setCurrentCard(next))
-      dispatch(setCurrentCardFade(false))
+      setStartNextAnimation(false)
+      dispatch(setCurrentCard(nextCard))
+      // dispatch(setCurrentCardFade(false))
       setAnimateNextButton(false)
-    }, 200)
+    }, 400)
   }
 
   function closePopup() {
@@ -88,6 +104,18 @@ export function FullViewCards() {
 
     setTouchPosition(null);
   }
+
+  const currentCardStyle = () => {
+    if (startNextAnimation) {
+      return styles.imageNextAnimated
+    } else if (startPrevAnimation) {
+      return styles.imagePrevAnimated
+    } else {
+      return styles.image
+    }
+  }
+
+  
 
   if (!isPopupOpen) {
     return null
@@ -130,8 +158,12 @@ export function FullViewCards() {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
         >
-         
-          <img src={currentCard.image} className={styles.image}></img>
+          <img className={startPrevAnimation ? styles.prevCardAnimated : styles.prevCard} src={prevCard.image}></img>
+          <img 
+            src={currentCard.image} 
+            className={currentCardStyle()}></img>
+          <img className={startNextAnimation ? styles.nextCardAnimated : styles.nextCard} src={nextCard.image}></img>
+
         </div>
       </div>
 

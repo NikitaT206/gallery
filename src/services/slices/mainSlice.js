@@ -6,12 +6,12 @@ const mainSlice = createSlice({
   initialState: {
     initialCards: cards,
     currentCards: [],
+    currentCard: null,
     currentTab: 'Show All',
     fade: false,
     numberOfSlice: 9,
     clickedCards: [],
     isTabsOpen: false,
-    currentCard: null,
     isCurrentCardFade: false,
     isPopupOpen: false,
     isPopupFade: false,

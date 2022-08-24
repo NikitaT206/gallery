@@ -49,6 +49,7 @@ export function Card({card, mainRef, index}) {
     setHide(false)
   }, [])
 
+
   const gridStyle = useMemo(() => { 
     return {
       // gridRowStart: `span ${Math.floor(Math.random() * 5 + 1)}`,
