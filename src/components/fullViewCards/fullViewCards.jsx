@@ -1,10 +1,7 @@
-import { useRef } from 'react'
-import { useEffect } from 'react'
 import { useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentCard, setCurrentCardFade, setFullScreen, setPopupFade, setPopupOpen, setUxHidden } from '../../services/slices/mainSlice'
+import { setCurrentCard, setPopupFade, setPopupOpen, setUxHidden } from '../../services/slices/mainSlice'
 import { CardSmall } from '../cardSmall/CardSmall'
-import { FullViewImage } from '../fullViewImage/fullViewImage'
 import styles from './fullViewCards.module.css'
 
 export function FullViewCards() {
@@ -16,11 +13,10 @@ export function FullViewCards() {
   const [touchPosition, setTouchPosition] = useState(null)
   const [startPrevAnimation, setStartPrevAnimation] = useState(false)
   const [startNextAnimation, setStartNextAnimation] = useState(false)
-
-  const dispatch = useDispatch()
-
   const [animatePrevButton, setAnimatePrevButton] = useState(false)
   const [animateNextButton, setAnimateNextButton] = useState(false)
+
+  const dispatch = useDispatch()
 
   const prevCard = useMemo(() => {
     let prev = currentCards.find((item, index, arr) => arr.indexOf(item) === arr.indexOf(currentCard) - 1)
@@ -40,28 +36,24 @@ export function FullViewCards() {
 
   function setPrevCard(event) {
     event.stopPropagation()
-    // dispatch(setCurrentCardFade(true))
     setAnimatePrevButton(true)
     setStartPrevAnimation(true)
 
     setTimeout(() => {
       setStartPrevAnimation(false)
       dispatch(setCurrentCard(prevCard))
-      // dispatch(setCurrentCardFade(false))
       setAnimatePrevButton(false)
     }, 400)
   }
 
   function setNextCard(event) {
     event.stopPropagation()
-    // dispatch(setCurrentCardFade(true))
     setAnimateNextButton(true)
     setStartNextAnimation(true)
 
     setTimeout(() => {
       setStartNextAnimation(false)
       dispatch(setCurrentCard(nextCard))
-      // dispatch(setCurrentCardFade(false))
       setAnimateNextButton(false)
     }, 400)
   }
@@ -115,8 +107,6 @@ export function FullViewCards() {
     }
   }
 
-  
-
   if (!isPopupOpen) {
     return null
   }
@@ -127,30 +117,25 @@ export function FullViewCards() {
       <div className={styles.flexContainer}>
 
         <div className={isUxHidden ? styles.uxContainerHidden : styles.uxContainer}>
-          <button className={styles.closeButton} onClick={closePopup}></button>
-          <button className={animatePrevButton ? styles.buttonPrevAnimate : styles.buttonPrev} onClick={setPrevCard}></button>
-          <button className={animateNextButton ? styles.buttonNextAnimate : styles.buttonNext} onClick={setNextCard}></button>
+          <button 
+            className={styles.closeButton} 
+            onClick={closePopup}
+          ></button>
+          <button 
+            className={animatePrevButton ? styles.buttonPrevAnimate : styles.buttonPrev} 
+            onClick={setPrevCard}
+          ></button>
+          <button 
+            className={animateNextButton ? styles.buttonNextAnimate : styles.buttonNext} 
+            onClick={setNextCard}
+          ></button>
+
           <div className={styles.cardsConteiner}>
             {currentCards.map(item => {
               return <CardSmall card={item} key={item.id}/>
             })}
           </div>
-
-          {/* <div className={styles.description}>
-            <div>
-              <p className={styles.name}>{currentCard.name}</p>
-              <p className={styles.category}>{currentCard.category}</p>
-            </div>
-          </div> */}
         </div>
-
-        {/* <div className={styles.imagesContainer} onClick={toogleUxContainerHidden} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove}>
-          {currentCards.map(item => {
-            return (
-              <FullViewImage image={item} key={item.id}/>
-            ) 
-          })}
-        </div> */}
        
         <div 
           className={isCurrentCardFade ? styles.imageContainerFade : styles.imageContainer} 
@@ -158,18 +143,21 @@ export function FullViewCards() {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
         >
-          <img className={startPrevAnimation ? styles.prevCardAnimated : styles.prevCard} src={prevCard.image}></img>
+          <img 
+            className={startPrevAnimation ? styles.prevCardAnimated : styles.prevCard} 
+            src={prevCard.image}
+          ></img>
           <img 
             src={currentCard.image} 
-            className={currentCardStyle()}></img>
-          <img className={startNextAnimation ? styles.nextCardAnimated : styles.nextCard} src={nextCard.image}></img>
-
+            className={currentCardStyle()}
+          ></img>
+          <img 
+            className={startNextAnimation ? styles.nextCardAnimated : styles.nextCard} 
+            src={nextCard.image}
+          ></img>
         </div>
+
       </div>
-
-     
-     
-
     </div>
   )
 }

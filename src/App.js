@@ -1,5 +1,4 @@
 import styles from './App.module.css'
-import { Header } from './components/header/Header';
 import {Tabs} from './components/tabs/Tabs'
 import {Cards} from './components/cards/Cards'
 import { useRef, useState, useEffect } from 'react';
@@ -22,14 +21,11 @@ function App() {
   }, [])
 
   return (
-    <div className={isPopupOpen ? styles.noScroll : styles.app} onClick={() => dispatch(setTabsOpen(false))}>
+    <div 
+      className={isPopupOpen ? styles.noScroll : styles.app} 
+      onClick={() => dispatch(setTabsOpen(false))}
+    >
       <div className={isPopupOpen ? styles.blur : styles.notBlur}>
-        {/* <div className={styles.heading}>
-          <Header/>
-          <h1 className={styles.title}>Portfolio</h1>
-          <p className={styles.subtitle}>Agency provides a full service range including technical skills, design, business understanding.</p>
-        </div> */}
-
         <main className={styles.main} ref={mainRef}>
           <Tabs mainRef={mainRef}/>
           <Cards mainRef={mainRef} width={width}/>

@@ -10,7 +10,6 @@ const mainSlice = createSlice({
     currentTab: 'Show All',
     fade: false,
     numberOfSlice: 9,
-    clickedCards: [],
     isTabsOpen: false,
     isCurrentCardFade: false,
     isPopupOpen: false,
@@ -54,9 +53,6 @@ const mainSlice = createSlice({
       if (state.numberOfSlice >= state.currentCards.length) return
       state.numberOfSlice += 9
     },
-    setClikedCards(state, action) {
-      state.clickedCards = action.payload
-    },
     setInitialCards(state, action) {
       state.initialCards = action.payload
     },
@@ -75,7 +71,6 @@ export const {
   setCurrentTab,
   setCurrentCards,
   setNumberOfSlice,
-  setClikedCards,
   setInitialCards,
   setTabsOpen,
   setCurrentCard,

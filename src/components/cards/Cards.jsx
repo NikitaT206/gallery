@@ -1,11 +1,11 @@
 import styles from './Cards.module.css'
 import { Card } from '../card/Card'
 import { useSelector, useDispatch } from 'react-redux'
-import { setNumberOfSlice, setCurrentCards, setCurrentTab, setInitialCards } from '../../services/slices/mainSlice'
+import { setNumberOfSlice, setCurrentCards, setCurrentTab } from '../../services/slices/mainSlice'
 import { useEffect } from 'react'
 
 export function Cards({mainRef, width}) {
-  const {fade, currentCards, numberOfSlice, clickedCards, initialCards} = useSelector(state => state.main)
+  const {fade, currentCards, numberOfSlice, initialCards} = useSelector(state => state.main)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -18,17 +18,6 @@ export function Cards({mainRef, width}) {
   useEffect(() => {
     dispatch(setCurrentCards())
   }, [initialCards])
-
-  useEffect(() => {
-    const deleteByKey = (event) => {
-      if (event.key === 'Delete') {
-        const filteredCards = initialCards.filter(card => !clickedCards.includes(card.id))
-        dispatch(setInitialCards(filteredCards))
-      }
-    }
-    document.addEventListener('keydown', deleteByKey)
-    return () => document.removeEventListener('keydown', deleteByKey)
-  })
 
   return (
     <section className={styles.cards}>

@@ -71,25 +71,6 @@
   justify-content: center;
   align-items: center;
   z-index: 5;
-  /* overflow: scroll; */
-  /* top: -50px; */
-}
-
-.imagesContainer {
-  display: flex;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  gap: 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-
-}
-
-.imagesContainer::-webkit-scrollbar {
-  display: none;
 }
 
 .image {
@@ -137,7 +118,6 @@
   object-fit: contain;
   display: block;
   position: absolute;
-  /* animation: flow .4s linear infinite; */
   z-index: 20;
 }
 
@@ -162,7 +142,6 @@
   object-fit: contain;
   display: block;
   position: absolute;
-  /* animation: flow2 .4s linear infinite; */
   z-index: 20;
 }
 
@@ -189,40 +168,6 @@
   opacity: 0;
 }
 
-.description {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  transition: .2s ease-in-out;
-  z-index: 10;
-}
-
-.name {
-  font-size: 20px;
-  font-weight: 700;
-  text-shadow: 0px 0px 1px white;
-  margin: 0 0 10px 0;
-}
-
-.category {
-  background-color: white;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 19px;
-  padding: 3px 16px 2px 16px;
-  font-size: 16px;
-  line-height: 32px;
-  color: #391400;
-  margin: 0;
-}
-
-.imageContainer:hover > .description {
-  opacity: 1;
-}
-
-
 .buttonPrev {
   border: none;
   outline: none;
@@ -243,7 +188,6 @@
 }
 
 .buttonNext {
-  /* composes: buttonPrev; */
   border: none;
   outline: none;
   background-color: transparent;
@@ -287,7 +231,6 @@
 .cardsConteiner {
   position: absolute;
   display: flex;
-  /* gap: 10px; */
   bottom: 0px;
   left: 50%;
   transform: translate(-50%);
