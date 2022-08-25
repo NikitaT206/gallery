@@ -53,9 +53,10 @@ export function Card({card, mainRef, index}) {
   const gridStyle = useMemo(() => { 
     return {
       // gridRowStart: `span ${Math.floor(Math.random() * 5 + 1)}`,
-      gridRowEnd: `span ${Math.floor(Math.random() * 5 + 2)}`,
+      // gridRowEnd: `span ${Math.floor(Math.random() * 5 + 2)}`,
+      gridRowEnd: index % Math.floor(Math.random() * 2) === 0 ? `span ${Math.floor(Math.random() * 5 + 2)}` : `span 1`,
       // gridColumnStart: `span ${Math.floor(Math.random() * 5 + 2)}`,
-      // gridColumnEnd: `span ${Math.floor(Math.random() * 3 + 2)}` 
+      gridColumnEnd: index % Math.floor(Math.random() * 20) === 0 ? `span ${Math.floor(Math.random() * 3)}` : `span 1`
     }
   }, [currentCards])
 
