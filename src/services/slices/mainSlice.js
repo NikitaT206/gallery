@@ -1,5 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { uploadImage, getImages } from '../../utils/api';
 import { cards } from '../../utils/contants';
+
+export const postImage = createAsyncThunk(
+  'main/postImage',
+  async (formData) => {
+    return await uploadImage(formData)
+      .then(data => data)
+      .catch(err => Promise.reject(err))
+  }
+)
+
+export const getAllImages = createAsyncThunk(
+  'main/getImages',
+  async () => {
+    return await getImages()
+      .then(data => data)
+      .catch(err => Promise.reject(err))
+  }
+)
 
 const mainSlice = createSlice({
   name: 'main',
@@ -15,7 +34,8 @@ const mainSlice = createSlice({
     isPopupOpen: false,
     isPopupFade: false,
     isFullScreen: false,
-    isUxHidden: false
+    isUxHidden: false,
+    loadedCards: []
   },
   reducers: {
     setCurrentTab(state, action) {
@@ -62,7 +82,16 @@ const mainSlice = createSlice({
     setUxHidden(state, action) {
       state.isUxHidden = action.payload
     }
+  },
+  extraReducers: {
+    [postImage.fulfilled]: (state, action) => {
+      console.log(action.payload)
+    },
+    [getAllImages.fulfilled]: (state, action) => {
+      state.loadedCards = action.payload
+    }
   }
+ 
 })
 
 const { actions, reducer } = mainSlice

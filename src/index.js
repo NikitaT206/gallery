@@ -5,14 +5,18 @@ import App from './App';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers';
+import { BrowserRouter } from 'react-router-dom';
 
 const store = configureStore({
   reducer: rootReducer
 })
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'))
+
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
-);
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>
+)

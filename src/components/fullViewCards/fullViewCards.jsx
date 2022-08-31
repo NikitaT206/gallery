@@ -15,6 +15,7 @@ export function FullViewCards() {
   const [startNextAnimation, setStartNextAnimation] = useState(false)
   const [animatePrevButton, setAnimatePrevButton] = useState(false)
   const [animateNextButton, setAnimateNextButton] = useState(false)
+  const [position, setPosition] = useState(null)
 
   const dispatch = useDispatch()
 
@@ -73,28 +74,40 @@ export function FullViewCards() {
   }
 
   const handleTouchStart = (e) => {
-    const touchDown = e.touches[0].clientX
-
-    setTouchPosition(touchDown)
+    const {clientX, clientY} = e.touches[0]
+    setTouchPosition(clientX)
   }
 
   const handleTouchMove = (e) => {
-    if (touchPosition === null) {
-      return
-    }
 
     const currentPosition = e.touches[0].clientX
     const direction = touchPosition - currentPosition
-  
+    setPosition(currentPosition)
+
+    if (touchPosition === null) {
+      return
+    }
+   
     if (direction > 10) {
+      // setPosition(direction)
       setNextCard(e)
     }
 
     if (direction < -10) {
+      // setPosition(direction)
+
       setPrevCard(e)
     }
 
     setTouchPosition(null);
+
+  }
+
+  const handleTouchEnd = (e) => {
+    e.preventDefault()
+    // setPosition(null)
+
+
   }
 
   const currentCardStyle = () => {
@@ -142,12 +155,15 @@ export function FullViewCards() {
           onClick={toogleUxContainerHidden}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           <img 
+
             className={startPrevAnimation ? styles.prevCardAnimated : styles.prevCard} 
             src={prevCard.image}
           ></img>
           <img 
+
             src={currentCard.image} 
             className={currentCardStyle()}
           ></img>

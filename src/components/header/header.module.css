@@ -1,0 +1,23 @@
+.header {
+  width: 90%;
+  max-width: 1570px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding-top: 40px;
+}
+
+.logo {
+  margin: 0;
+}
+
+.link {
+  background-color: #F3D1BF;
+  padding: 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  box-shadow: 0px 0 30px 5px  rgba(0, 0, 0, 0.174);
+}
