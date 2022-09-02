@@ -24,7 +24,7 @@ export function Cards({mainRef, width}) {
 
       <div className={fade ? styles.currentCardsFade : styles.currentCards}>
         {currentCards.slice(0, numberOfSlice).map((card, index) => {
-          return <Card card={card} key={card.id} mainRef={mainRef} width={width} index={index}/>
+          return <Card card={card} key={card._id} mainRef={mainRef} width={width} index={index}/>
         })}
       </div>
 

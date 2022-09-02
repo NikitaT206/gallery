@@ -1,16 +1,17 @@
 import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentCard, setCurrentCardFade } from '../../services/slices/mainSlice'
+import { API } from '../../utils/api'
 import styles from './CardSmall.module.css'
 
 export function CardSmall({card}) {
   const {currentCard} = useSelector(state => state.main)
-  const isCurrentCard = currentCard.id === card.id
+  const isCurrentCard = currentCard._id === card._id
   const dispatch = useDispatch()
 
   function onClickHandler(event) {
     event.stopPropagation()
-    if (currentCard.id === card.id) return
+    if (currentCard._id === card._id) return
     dispatch(setCurrentCardFade(true))
     setTimeout(() => {
       dispatch(setCurrentCard(card))
@@ -21,7 +22,7 @@ export function CardSmall({card}) {
   const ref = useRef()
 
   useEffect(() => {
-    if (currentCard.id == ref.current.id) {
+    if (currentCard._id === ref.current.id) {
       ref.current.scrollIntoView({ behavior: "smooth" })
     }
   }, [currentCard])
@@ -29,11 +30,11 @@ export function CardSmall({card}) {
   return (
     <div 
       className={isCurrentCard ? styles.currentCard : styles.card} 
-      id={card.id}
       onClick={onClickHandler}
       ref={ref}
+      id={card._id}
       >
-      <img src={card.image} className={styles.image}></img>
+      <img src={ API + card.image} className={styles.image}></img>
     </div>
   )
 }

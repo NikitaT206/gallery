@@ -1,8 +1,12 @@
 import { useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentCard, setPopupFade, setPopupOpen, setUxHidden } from '../../services/slices/mainSlice'
+import { API } from '../../utils/api'
 import { CardSmall } from '../cardSmall/CardSmall'
 import styles from './fullViewCards.module.css'
+import { useEffect } from 'react'
+import { InfoPanel } from '../infoPanel/infoPanel'
+import { setShowInfoPanel } from '../../services/slices/infoPanelSlice'
 
 export function FullViewCards() {
   const {currentCard, currentCards} = useSelector(state => state.main)
@@ -10,12 +14,15 @@ export function FullViewCards() {
   const {isPopupFade} = useSelector(state => state.main)
   const {isCurrentCardFade} = useSelector(state => state.main)
   const {isUxHidden} = useSelector(state => state.main)
+  const {isInfoPanelShow} = useSelector(state => state.infoPanel)
+
   const [touchPosition, setTouchPosition] = useState(null)
   const [startPrevAnimation, setStartPrevAnimation] = useState(false)
   const [startNextAnimation, setStartNextAnimation] = useState(false)
   const [animatePrevButton, setAnimatePrevButton] = useState(false)
   const [animateNextButton, setAnimateNextButton] = useState(false)
-  const [position, setPosition] = useState(null)
+  const [positionY, setPositionY] = useState(null)
+  const [showPanel, setShowPanel] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -39,7 +46,7 @@ export function FullViewCards() {
     event.stopPropagation()
     setAnimatePrevButton(true)
     setStartPrevAnimation(true)
-
+    setShowPanel(false)
     setTimeout(() => {
       setStartPrevAnimation(false)
       dispatch(setCurrentCard(prevCard))
@@ -51,7 +58,7 @@ export function FullViewCards() {
     event.stopPropagation()
     setAnimateNextButton(true)
     setStartNextAnimation(true)
-
+    setShowPanel(false)
     setTimeout(() => {
       setStartNextAnimation(false)
       dispatch(setCurrentCard(nextCard))
@@ -75,49 +82,68 @@ export function FullViewCards() {
 
   const handleTouchStart = (e) => {
     const {clientX, clientY} = e.touches[0]
+    setPositionY(clientY)
     setTouchPosition(clientX)
   }
 
   const handleTouchMove = (e) => {
+    const currentPositionY = e.touches[0].clientY
+    const directionY = positionY - currentPositionY
 
-    const currentPosition = e.touches[0].clientX
-    const direction = touchPosition - currentPosition
-    setPosition(currentPosition)
+    if (touchPosition === null || positionY === null) {
+      return
+    }
+
+    if (directionY > 10) {
+      dispatch(setShowInfoPanel(true))
+    }
+
+    if (directionY < -5) {
+      dispatch(setShowInfoPanel(false))
+
+    }
+    setPositionY(null)
+  }
+
+  const handleTouchMoveX = (e) => {
+    const currentPositionX = e.touches[0].clientX
+    const directionX = touchPosition - currentPositionX
 
     if (touchPosition === null) {
       return
     }
-   
-    if (direction > 10) {
-      // setPosition(direction)
+
+    if (directionX > 7) {
       setNextCard(e)
     }
 
-    if (direction < -10) {
-      // setPosition(direction)
-
+    if (directionX < -7) {
       setPrevCard(e)
     }
 
     setTouchPosition(null);
-
   }
 
   const handleTouchEnd = (e) => {
-    e.preventDefault()
+    // e.preventDefault()
     // setPosition(null)
-
-
   }
+
+  useEffect(() => {
+    if (!currentCards.length) {
+      closePopup()
+    }
+  }, [currentCards])
 
   const currentCardStyle = () => {
     if (startNextAnimation) {
       return styles.imageNextAnimated
     } else if (startPrevAnimation) {
       return styles.imagePrevAnimated
-    } else {
-      return styles.image
+    } else if (isInfoPanelShow) {
+      return styles.currentCardPanel
     }
+    return styles.image
   }
 
   if (!isPopupOpen) {
@@ -125,7 +151,12 @@ export function FullViewCards() {
   }
 
   return (
-    <div className={isPopupFade ? styles.overlayFade : styles.overlay} onClick={closePopup}>
+    <div  
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd} 
+      className={isPopupFade ? styles.overlayFade : styles.overlay} 
+    >
 
       <div className={styles.flexContainer}>
 
@@ -145,7 +176,7 @@ export function FullViewCards() {
 
           <div className={styles.cardsConteiner}>
             {currentCards.map(item => {
-              return <CardSmall card={item} key={item.id}/>
+              return <CardSmall card={item} key={item._id}/>
             })}
           </div>
         </div>
@@ -153,25 +184,25 @@ export function FullViewCards() {
         <div 
           className={isCurrentCardFade ? styles.imageContainerFade : styles.imageContainer} 
           onClick={toogleUxContainerHidden}
+          onTouchMove={handleTouchMoveX}
           onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
         >
           <img 
-
             className={startPrevAnimation ? styles.prevCardAnimated : styles.prevCard} 
-            src={prevCard.image}
+            src={ API + prevCard.image}
           ></img>
           <img 
-
-            src={currentCard.image} 
+            src={ API + currentCard.image} 
             className={currentCardStyle()}
           ></img>
+         
           <img 
             className={startNextAnimation ? styles.nextCardAnimated : styles.nextCard} 
-            src={nextCard.image}
+            src={ API + nextCard.image}
           ></img>
         </div>
+        <InfoPanel setNextCard={setNextCard}/>
+       
 
       </div>
     </div>

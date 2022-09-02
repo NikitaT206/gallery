@@ -76,9 +76,14 @@
 .image {
   width: 100%;
   max-height: 100vh;
+  height: 100vh;
   object-fit: contain;
   display: block;
   z-index: 10;
+  transition: .4s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .imageNextAnimated {
@@ -206,6 +211,10 @@
   z-index: 10;
 }
 
+
+
+
+
 .buttonPrevAnimate {
   composes: buttonPrev;
   animation: pushButton .2s ease-in-out;
@@ -215,6 +224,8 @@
   composes: buttonNext;
   animation: pushButton .2s ease-in-out;
 }
+
+
 
 @keyframes pushButton {
   0% {
@@ -231,7 +242,7 @@
 .cardsConteiner {
   position: absolute;
   display: flex;
-  bottom: 0px;
+  bottom: 50px;
   left: 50%;
   transform: translate(-50%);
   overflow: scroll;
@@ -240,18 +251,27 @@
   align-items: center;
   scrollbar-width: 0;
   justify-content:space-between;
-  z-index: 10;
+  z-index: 20;
 }
 
 .cardsConteiner::-webkit-scrollbar {
   display: none;
 }
 
+.currentCardPanel {
+  composes: image;
+  height: 30vh;
+  max-height: 30vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 @media screen and (max-width: 500px) and (max-height: 900px) {
   .buttonPrev {
     position: absolute;
     top: initial;
-    bottom: 5px;
+    bottom: 55px;
     left: 20px;
     width: 40px;
     height: 40px;
@@ -260,7 +280,7 @@
   .buttonNext {
     position: absolute;
     top: initial;
-    bottom: 5px;
+    bottom: 55px;
     right: 20px;
     width: 40px;
     height: 40px;
@@ -288,7 +308,7 @@
   .buttonPrev {
     position: absolute;
     top: initial;
-    bottom: 5px;
+    bottom: 60px;
     left: 20px;
     width: 40px;
     height: 40px;
@@ -297,7 +317,7 @@
   .buttonNext {
     position: absolute;
     top: initial;
-    bottom: 5px;
+    bottom: 60px;
     right: 20px;
     width: 40px;
     height: 40px;

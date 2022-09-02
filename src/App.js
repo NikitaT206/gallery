@@ -3,7 +3,7 @@ import {Tabs} from './components/tabs/Tabs'
 import {Cards} from './components/cards/Cards'
 import { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllImages, postImage, setTabsOpen } from './services/slices/mainSlice';
+import { getAllImages, postImage, setPostCardSuccessFalse, setTabsOpen } from './services/slices/mainSlice';
 import { FullViewCards } from './components/fullViewCards/fullViewCards';
 import { Header } from './components/header/header';
 import { PostImageForm } from './components/postImageForm/postImageForm';
@@ -12,7 +12,7 @@ import { Route, Routes } from 'react-router-dom';
 function App() {
   const mainRef = useRef()
   const dispatch = useDispatch()
-  const {isPopupOpen, loadedCards} = useSelector(state => state.main)
+  const {isPopupOpen, initialCards, loadedCards} = useSelector(state => state.main)
   const [width, setWidth] = useState(window.innerWidth)
 
   useEffect(() => {
@@ -21,6 +21,14 @@ function App() {
     }
     window.addEventListener('resize', resizeListener)
     return () => window.removeEventListener('resize', resizeListener)
+  }, [])
+
+  useEffect(() => {
+    dispatch(getAllImages())
+  }, [])
+
+  useEffect(() => {
+    dispatch(setPostCardSuccessFalse())
   }, [])
 
   return (

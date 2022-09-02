@@ -1,9 +1,10 @@
 import styles from './Card.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentCard, setPopupOpen, setPopupFade } from '../../services/slices/mainSlice'
+import { setCurrentCard, setPopupOpen, setPopupFade, removeImage, filterInitialCards } from '../../services/slices/mainSlice'
 import { useMemo } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { API } from '../../utils/api'
 
 export function Card({card}) {
 
@@ -33,10 +34,9 @@ export function Card({card}) {
   return (
     <div 
       className={hide ? styles.cardHide : styles.card} 
-      onClick={onCardClick} 
       style={gridStyle}
     >
-      <img className={styles.image} src={card.image} alt={card.name}/>
+      <img onClick={onCardClick} className={styles.image} src={ API + card.thumbnail } alt={card.name}/>
     </div>
   )
 }

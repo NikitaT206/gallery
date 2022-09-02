@@ -1,14 +1,15 @@
 import { createBrowserHistory } from 'history'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { postImage } from '../../services/slices/mainSlice'
+import { postImage, setPostCardSuccessFalse } from '../../services/slices/mainSlice'
 import styles from './postImageForm.module.css'
 
 export function PostImageForm() {
   const [hide, setHide] = useState(true)
   const [form, setForm] = useState({name: '', category: '', image: ''})
+  const {postCardError, postCardCuccess, isSubmitButtonDisabled} = useSelector(state => state.main)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -31,16 +32,32 @@ export function PostImageForm() {
     formData.append('category', form.category)
     formData.append('image', form.image)
     dispatch(postImage(formData))
-    navigate('/')
   }
+
+  useEffect(() => {
+    dispatch(setPostCardSuccessFalse())
+    if (postCardCuccess) {
+      navigate('/')
+    }
+  }, [postCardCuccess])
+
+  useEffect(() => {
+    if (postCardError) {
+      console.log(postCardError);
+    }
+  }, [postCardError])
 
   return (
     <div className={hide ? styles.container : styles.containerShow}>
+      {postCardError && <p>Error</p>}
       <form className={styles.form} encType={'multipart/form-data'} onSubmit={handleSubmit}>
-        <input className={styles.input} type={'text'} name={'name'} placeholder={'name'} value={form.name} onChange={handleChange}></input>
-        <input className={styles.input} type={'text'} name={'category'} placeholder={'category'} value={form.category} onChange={handleChange}></input>
-        <input className={styles.inputFile} type={'file'} name={'image'} placeholder={'insert file'} onChange={handleChangeFile}></input>
-        <button className={styles.submitButton} type={'submit'}>Post Image</button>
+        {form.image && <img className={styles.previewImage} src={URL.createObjectURL(form.image)}></img>}
+        <input className={styles.input} required type={'text'} name={'name'} placeholder={'name'} value={form.name} onChange={handleChange}></input>
+        <input className={styles.input} required type={'text'} name={'category'} placeholder={'category'} value={form.category} onChange={handleChange}></input>
+        <div className={styles.inputFileContainer}>Choose image
+          <input className={styles.inputFile} required type={'file'} name={'image'} placeholder={'insert file'} onChange={handleChangeFile}></input>
+        </div>
+        <button className={styles.submitButton} type={'submit'} disabled={isSubmitButtonDisabled}>Post Image</button>
       </form>
     </div>
   )

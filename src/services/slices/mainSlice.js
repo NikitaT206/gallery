@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { uploadImage, getImages } from '../../utils/api';
-import { cards } from '../../utils/contants';
+import { uploadImage, getImages, deleteImage } from '../../utils/api';
+// import { cards } from '../../utils/contants';
 
 export const postImage = createAsyncThunk(
   'main/postImage',
@@ -23,7 +23,7 @@ export const getAllImages = createAsyncThunk(
 const mainSlice = createSlice({
   name: 'main',
   initialState: {
-    initialCards: cards,
+    initialCards: [],
     currentCards: [],
     currentCard: null,
     currentTab: 'Show All',
@@ -35,7 +35,11 @@ const mainSlice = createSlice({
     isPopupFade: false,
     isFullScreen: false,
     isUxHidden: false,
-    loadedCards: []
+    loadedCards: [],
+    postCardCuccess: false,
+    postCardError: false,
+    postCardLoading: false,
+    isSubmitButtonDisabled: false
   },
   reducers: {
     setCurrentTab(state, action) {
@@ -81,14 +85,37 @@ const mainSlice = createSlice({
     },
     setUxHidden(state, action) {
       state.isUxHidden = action.payload
+    },
+    filterInitialCards(state, action) {
+      state.initialCards = state.initialCards.filter(item => action.payload !== item._id)
+    },
+    setPostCardSuccessFalse(state, action) {
+      state.postCardCuccess = false
     }
   },
   extraReducers: {
     [postImage.fulfilled]: (state, action) => {
-      console.log(action.payload)
+      state.postCardCuccess = true
+      state.postCardLoading = false
+      state.postCardError = false
+      state.initialCards = [action.payload, ...state.initialCards]
+      state.isSubmitButtonDisabled = false
+    },
+    [postImage.pending]: (state, action) => {
+      state.postCardCuccess = false
+      state.postCardLoading = true
+      state.postCardError = false
+      state.isSubmitButtonDisabled = true
+    },
+    [postImage.rejected]: (state, action) => {
+      state.postCardCuccess = false
+      state.postCardLoading = false
+      state.postCardError = action.payload
+      state.isSubmitButtonDisabled = false
+
     },
     [getAllImages.fulfilled]: (state, action) => {
-      state.loadedCards = action.payload
+      state.initialCards = action.payload
     }
   }
  
@@ -107,7 +134,9 @@ export const {
   setPopupFade,
   setCurrentCardFade,
   setFullScreen,
-  setUxHidden
+  setUxHidden,
+  filterInitialCards,
+  setPostCardSuccessFalse
 } = actions
 
 export default reducer 
