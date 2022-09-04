@@ -47,6 +47,7 @@ export function FullViewCards() {
     setAnimatePrevButton(true)
     setStartPrevAnimation(true)
     setShowPanel(false)
+    dispatch(setShowInfoPanel(false))
     setTimeout(() => {
       setStartPrevAnimation(false)
       dispatch(setCurrentCard(prevCard))
@@ -59,6 +60,7 @@ export function FullViewCards() {
     setAnimateNextButton(true)
     setStartNextAnimation(true)
     setShowPanel(false)
+    dispatch(setShowInfoPanel(false))
     setTimeout(() => {
       setStartNextAnimation(false)
       dispatch(setCurrentCard(nextCard))
@@ -68,6 +70,7 @@ export function FullViewCards() {
 
   function closePopup() {
     dispatch(setPopupFade(true))
+    dispatch(setShowInfoPanel(false))
     setTimeout(() => {
       dispatch(setPopupFade(false))
       dispatch(setPopupOpen(false))
@@ -195,7 +198,6 @@ export function FullViewCards() {
             src={ API + currentCard.image} 
             className={currentCardStyle()}
           ></img>
-         
           <img 
             className={startNextAnimation ? styles.nextCardAnimated : styles.nextCard} 
             src={ API + nextCard.image}

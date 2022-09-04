@@ -34,7 +34,7 @@ export function CardSmall({card}) {
       ref={ref}
       id={card._id}
       >
-      <img src={ API + card.image} className={styles.image}></img>
+      <img src={ API + card.thumbnailSmall} className={styles.image}></img>
     </div>
   )
 }

@@ -9,7 +9,7 @@ import styles from './postImageForm.module.css'
 export function PostImageForm() {
   const [hide, setHide] = useState(true)
   const [form, setForm] = useState({name: '', category: '', image: ''})
-  const {postCardError, postCardCuccess, isSubmitButtonDisabled} = useSelector(state => state.main)
+  const {postCardError, postCardCuccess, isSubmitButtonDisabled, postCardLoading} = useSelector(state => state.main)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -47,17 +47,26 @@ export function PostImageForm() {
     }
   }, [postCardError])
 
+  useEffect(() => {
+    console.log(form.image);
+  }, [form])
+
   return (
     <div className={hide ? styles.container : styles.containerShow}>
+      {postCardLoading && (
+        <div className={styles.loader}>
+          <div className={styles.ldsdualring}></div>
+        </div>
+      )}
       {postCardError && <p>Error</p>}
       <form className={styles.form} encType={'multipart/form-data'} onSubmit={handleSubmit}>
         {form.image && <img className={styles.previewImage} src={URL.createObjectURL(form.image)}></img>}
-        <input className={styles.input} required type={'text'} name={'name'} placeholder={'name'} value={form.name} onChange={handleChange}></input>
-        <input className={styles.input} required type={'text'} name={'category'} placeholder={'category'} value={form.category} onChange={handleChange}></input>
-        <div className={styles.inputFileContainer}>Choose image
+        <input className={styles.input} required type={'text'} name={'name'} placeholder={'name'} value={form.name} onChange={handleChange} maxLength={15} minLength={1}></input>
+        <input className={styles.input} required type={'text'} name={'category'} placeholder={'category'} value={form.category} onChange={handleChange} maxLength={15} minLength={1}></input>
+        <div className={form.image ? styles.inputFileContainerSuccess : styles.inputFileContainer}>{form.image ? form.image.name : 'Choose image'}
           <input className={styles.inputFile} required type={'file'} name={'image'} placeholder={'insert file'} onChange={handleChangeFile}></input>
         </div>
-        <button className={styles.submitButton} type={'submit'} disabled={isSubmitButtonDisabled}>Post Image</button>
+        <button className={postCardLoading ? styles.submitButtonAnimated : styles.submitButton} type={'submit'} disabled={isSubmitButtonDisabled}>Post Image</button>
       </form>
     </div>
   )

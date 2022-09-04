@@ -1,1 +1,0 @@
-export const tabs = ['Show All', 'Animals', 'Landscapes', 'Birds', 'Abstract', 'Macro']

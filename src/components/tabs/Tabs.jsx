@@ -1,12 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { tabs } from '../../utils/contants'
 import { Tab } from '../tab/Tab'
 import styles from './Tabs.module.css'
 import { setTabsOpen } from '../../services/slices/mainSlice'
+import { useMemo } from 'react'
 
 export function Tabs({mainRef}) {
-  const {currentTab, isTabsOpen} = useSelector(state => state.main)
+  const {currentTab, isTabsOpen, initialCards} = useSelector(state => state.main)
   const dispatch = useDispatch()
+
+  const tabs = useMemo(() => {
+    const category = initialCards.map(item => item.category)
+    return ['Show All', ...category]
+  }, [initialCards])
 
   function onTabOpenHandler(event) {
     event.stopPropagation()
