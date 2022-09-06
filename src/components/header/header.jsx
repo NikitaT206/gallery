@@ -7,7 +7,11 @@ export function Header() {
   return (
     <div className={styles.header}>
       <h1 className={styles.logo}>GALLERY</h1>
-      {location.pathname === '/upload' ? <Link className={styles.link} to={'/'}>Return</Link> : <Link className={styles.link} to={'/upload'}>Post Image</Link>}
+      {location.pathname === '/upload' ? (
+        <Link className={styles.link} to={'/'}>Return</Link>
+      ) : (
+        <Link className={styles.link} to={'/upload'}>Post Image</Link>
+      )}
     </div>
   )
 }

@@ -79,14 +79,14 @@
   height: 100vh;
   object-fit: contain;
   display: block;
-  z-index: 10;
+  z-index: 20;
   transition: .4s ease-in-out;
   position: absolute;
   top: 0;
   left: 0;
 }
 
-.currentCardPanel {
+.currentImageWithPanel {
   composes: image;
   height: 30vh;
   max-height: 30vh;
@@ -117,7 +117,7 @@
 
 @keyframes imagePrev {
   from {
-    transform: translate(0);
+    transform: translate(0vw);
   }
 
   to {
@@ -126,48 +126,71 @@
 }
 
 .prevCard {
-  width: 100%;
-  max-height: 100vh;
-  transform: translate(-100vw);
+  position: relative;
+  left: -100vw;
+  height: 0;
+  width: 0;
   object-fit: contain;
   display: block;
   position: absolute;
+  transition: .1s ease-in-out;
+  z-index: 30;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .prevCardAnimated {
   composes: prevCard;
-  animation: flow .4s ease-in-out forwards;
+  animation: prevCard .4s ease-in-out forwards;
+  height: 100vh;
+  width: 100%;
+  max-height: 100vh;
+  opacity: 1;
+  visibility: visible;
 }
 
-@keyframes flow {
+@keyframes prevCard {
   from {
-    transform: translate(-100vw);
+    left: -100vw;
+    opacity: 0;
   }
   to {
-    transform: translate(0vw);
+    left: 0vw;
+    opacity: 1;
   }
 }
 
 .nextCard {
-  width: 100%;
-  max-height: 100vh;
-  transform: translate(100vw);
+  height: 0;
+  width: 0;
+  left: 100vw;
   object-fit: contain;
   display: block;
   position: absolute;
+  transition: .1s ease-in-out;
+  z-index: 30;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .nextCardAnimated {
   composes: nextCard;
-  animation: flow2 .4s ease-in-out forwards;
+  animation: nextCard .4s ease-in-out forwards;
+  height: 100vh;
+  width: 100%;
+  max-height: 100vh;
+  opacity: 1;
+  visibility: visible;
 }
 
-@keyframes flow2 {
+@keyframes nextCard {
   from {
-    transform: translate(100vw);
+    left: 100vw;
+    opacity: 0;
   }
   to {
-    transform: translate(0vw);
+    left: 0vw;
+    opacity: 1;
   }
 }
 
@@ -240,22 +263,22 @@
   }
 }
 
-.cardsConteiner {
+.smallCardsContainer {
   position: absolute;
   display: flex;
   bottom: 50px;
   left: 50%;
   transform: translate(-50%);
   overflow: scroll;
+  height: 80px;
   max-width: 70%;
-  margin: 0 auto;
   align-items: center;
+  justify-content: center;
   scrollbar-width: 0;
-  justify-content:space-between;
   z-index: 20;
 }
 
-.cardsConteiner::-webkit-scrollbar {
+.smallCardsContainer::-webkit-scrollbar {
   display: none;
 }
 
@@ -263,7 +286,7 @@
   .buttonPrev {
     position: absolute;
     top: initial;
-    bottom: 55px;
+    bottom: 45px;
     left: 20px;
     width: 40px;
     height: 40px;
@@ -272,27 +295,16 @@
   .buttonNext {
     position: absolute;
     top: initial;
-    bottom: 55px;
+    bottom: 45px;
     right: 20px;
     width: 40px;
     height: 40px;
   }
 
-  .cardsConteiner {
+  .smallCardsContainer {
     width: 60%;
-  }
-
-  .description {
-    bottom: 10px;
-    left: 10px;
-  }
-
-  .name {
-    font-size: 15px;
-  }
-
-  .category {
-    font-size: 10px;
+    height: 70px;
+    bottom: 30px;
   }
 }
 
@@ -300,7 +312,7 @@
   .buttonPrev {
     position: absolute;
     top: initial;
-    bottom: 60px;
+    bottom: 45px;
     left: 20px;
     width: 40px;
     height: 40px;
@@ -309,10 +321,15 @@
   .buttonNext {
     position: absolute;
     top: initial;
-    bottom: 60px;
+    bottom: 45px;
     right: 20px;
     width: 40px;
     height: 40px;
+  }
+
+  .smallCardsContainer {
+    height: 70px;
+    bottom: 30px;
   }
 }
 

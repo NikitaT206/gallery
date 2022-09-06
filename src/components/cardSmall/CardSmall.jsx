@@ -16,7 +16,7 @@ export function CardSmall({card}) {
     setTimeout(() => {
       dispatch(setCurrentCard(card))
       dispatch(setCurrentCardFade(false))
-    }, 300)
+    }, 100)
   }
 
   const ref = useRef()
@@ -34,7 +34,11 @@ export function CardSmall({card}) {
       ref={ref}
       id={card._id}
       >
-      <img src={ API + card.thumbnailSmall} className={styles.image}></img>
+      <img 
+        src={ API + card.thumbnailSmall} 
+        className={styles.image}
+        alt={card.name}
+      ></img>
     </div>
   )
 }

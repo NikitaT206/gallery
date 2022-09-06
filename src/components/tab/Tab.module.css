@@ -1,10 +1,11 @@
 .tab {
   color: #391400A3;
   font-size: 16px;
-  line-height: 32px;
   transition: .2s ease-in-out;
   cursor: pointer;
   letter-spacing: -1px;
+  padding: 10px 16px;
+  box-sizing: border-box;
 }
 
 .tabActive {

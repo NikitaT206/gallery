@@ -66,12 +66,29 @@
   gap: 30px;
 }
 
+.inputContainer {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.282);
+}
+
 .input {
   padding: 20px;
-  border-radius: 10px;
   border: none;
-  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.282);
   font-size: 20px;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: block;
+  transition: .3s ease-in-out;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.282);
+  /* background-color: white; */
+}
+
+.input:focus {
+  transform: scale(1.05);
 }
 
 .inputFileContainer {
@@ -91,9 +108,13 @@
   transition: .4s ease-in-out;
 }
 
+.inputFileContainer:hover {
+  transform: scale(1.05);
+}
+
 .inputFileContainerSuccess {
   composes: inputFileContainer;
-  background-color: greenyellow;
+  background-color: #F3D1BF;
 }
 
 .inputFile {
@@ -120,6 +141,11 @@
   border: none;
   font-size: 20px;
   font-weight: 700;
+  transition: .3s ease-in-out;
+}
+
+.submitButton:disabled {
+  background-color: #b5b5b5;
 }
 
 .submitButtonAnimated {
@@ -139,4 +165,57 @@
 .previewImage {
   width: 100%;
   border-radius: 20px;
+}
+
+.inputContainer {
+  box-shadow: 0px 0 30px 5px  rgba(0, 0, 0, 0.174);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.inputContainerCategory {
+  /* composes: inputContainer; */
+  position: relative;
+  box-shadow: 0px 0 30px 5px  rgba(0, 0, 0, 0.174);
+  border-radius: 10px;
+  /* overflow: hidden; */
+}
+
+.categoriesContainer {
+  position: absolute;
+  top: 75px;
+  left: 0;
+  width: 100%;
+  min-height: max-content;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: white;
+  z-index: 30;
+  transition: .25s ease-in-out;
+  transform: scale(1.05);
+  box-sizing: border-box;
+  box-shadow: 0px 0 30px 5px  rgba(0, 0, 0, 0.174);
+  border-radius: 10px;
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  opacity: 1;
+  visibility: visible;
+}
+
+.categoriesContainerHide {
+  composes: categoriesContainer;
+  height: 0;
+  /* padding: 0 20px; */
+  transform: scale(0.8);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.category {
+  font-size: 20px;
+  margin: 0;
+  cursor: pointer;
+  padding: 10px 20px;
+  box-sizing: border-box;
 }

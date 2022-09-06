@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { uploadImage, getImages, deleteImage } from '../../utils/api';
-// import { cards } from '../../utils/contants';
+import { uploadImage, getImages } from '../../utils/api';
 
 export const postImage = createAsyncThunk(
   'main/postImage',
@@ -15,7 +14,7 @@ export const getAllImages = createAsyncThunk(
   'main/getImages',
   async () => {
     return await getImages()
-      .then(data => data)
+      .then(data => data.reverse())
       .catch(err => Promise.reject(err))
   }
 )
@@ -24,6 +23,8 @@ const mainSlice = createSlice({
   name: 'main',
   initialState: {
     initialCards: [],
+    getImagesLoading: false,
+    getImagesError: false,
     currentCards: [],
     currentCard: null,
     currentTab: 'Show All',
@@ -49,6 +50,9 @@ const mainSlice = createSlice({
       state.isTabsOpen = false
       state.numberOfSlice = 9
     },
+    setFade(state, action) {
+      state.fade = action.payload
+    },
     setCurrentCard(state, action) {
       state.currentCard = action.payload
     },
@@ -69,7 +73,7 @@ const mainSlice = createSlice({
         state.currentCards = state.initialCards
         state.fade = false
       } else {
-        state.currentCards = state.initialCards.filter(card => card.category === state.currentTab)
+        state.currentCards = state.initialCards.filter(card => card.category.toLowerCase() === state.currentTab.toLowerCase())
         state.fade = false
       }
     },
@@ -116,6 +120,16 @@ const mainSlice = createSlice({
     },
     [getAllImages.fulfilled]: (state, action) => {
       state.initialCards = action.payload
+      state.getImagesLoading = false
+      state.getImagesError = false
+    },
+    [getAllImages.pending]: (state, action) => {
+      state.getImagesLoading = true
+      state.getImagesError = false
+    },
+    [getAllImages.rejected]: (state, action) => {
+      state.getImagesLoading = false
+      state.getImagesError = true
     }
   }
  
@@ -136,7 +150,8 @@ export const {
   setFullScreen,
   setUxHidden,
   filterInitialCards,
-  setPostCardSuccessFalse
+  setPostCardSuccessFalse,
+  setFade
 } = actions
 
 export default reducer 
